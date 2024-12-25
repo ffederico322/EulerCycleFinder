@@ -1,0 +1,14 @@
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/bin/Debug/net8.0/EulerCycleFinder
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/bin/Debug/net8.0/EulerCycleFinder.deps.json
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/bin/Debug/net8.0/EulerCycleFinder.runtimeconfig.json
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/bin/Debug/net8.0/EulerCycleFinder.dll
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/bin/Debug/net8.0/EulerCycleFinder.pdb
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.GeneratedMSBuildEditorConfig.editorconfig
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.AssemblyInfoInputs.cache
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.AssemblyInfo.cs
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.csproj.CoreCompileInputs.cache
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.dll
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/refint/EulerCycleFinder.dll
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.pdb
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.genruntimeconfig.cache
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/ref/EulerCycleFinder.dll
