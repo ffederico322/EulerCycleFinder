@@ -1,7 +1,7 @@
 ﻿using EulerCycleFinder.Services;
 using EulerCycleFinder.UI;
 
-// Используйте относительный путь от корня проекта
+// Используйте относительный путь от корня проект
 var graphFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "graphs.txt");
             
 var fileService = new FileService();
