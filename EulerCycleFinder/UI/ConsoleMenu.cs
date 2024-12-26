@@ -11,6 +11,7 @@ public class ConsoleMenu
     private readonly IFileService _fileService;
     private readonly ConsoleHelper _consoleHelper;
     private readonly string _graphFilePath;
+    private readonly string _outputPath;
 
     public ConsoleMenu(IGraphService graphService, IFileService fileService, string graphFilePath)
     {
@@ -18,17 +19,20 @@ public class ConsoleMenu
         _fileService = fileService;
         _consoleHelper = new ConsoleHelper();
         _graphFilePath = graphFilePath;
+        // Создаем директорию для вывода в том же месте, где находится файл с графами
+        _outputPath = Path.Combine(Path.GetDirectoryName(_graphFilePath), "Results");
     }
 
+    // Главный метод, запускающий консольное меню
     public void Run()
     {
         bool running = true;
         while (running)
         {
-            _consoleHelper.DisplayHeader("Euler Cycle Finder");
+            _consoleHelper.DisplayHeader("Поиск Эйлерова цикла");
             DisplayMainMenu();
 
-            var choice = _consoleHelper.GetUserInput("Enter your choice (1-3): ");
+            var choice = _consoleHelper.GetUserInput("Введите ваш выбор (1-4): ");
             Console.Clear();
 
             try
@@ -39,48 +43,87 @@ public class ConsoleMenu
                         ProcessGraphSelection();
                         break;
                     case "2":
-                        DisplayHelp();
+                        ProcessGraphWithFileOutput();
                         break;
                     case "3":
+                        DisplayHelp();
+                        break;
+                    case "4":
                         running = false;
-                        _consoleHelper.DisplayMessage("Thank you for using Euler Cycle Finder!");
+                        _consoleHelper.DisplayMessage("Спасибо за использование программы для поиска Эйлерова цикла!");
                         break;
                     default:
-                        _consoleHelper.DisplayError("Invalid choice. Please try again.");
+                        _consoleHelper.DisplayError("Некорректный выбор. Пожалуйста, попробуйте снова.");
                         break;
                 }
             }
             catch (Exception ex)
             {
-                _consoleHelper.DisplayError($"An error occurred: {ex.Message}");
+                _consoleHelper.DisplayError($"Произошла ошибка: {ex.Message}");
             }
 
             if (running)
             {
-                _consoleHelper.DisplayMessage("\nPress any key to continue...");
+                _consoleHelper.DisplayMessage("\nНажмите любую клавишу для продолжения...");
                 Console.ReadKey();
                 Console.Clear();
             }
         }
     }
 
+    // Метод для отображения главного меню
     private void DisplayMainMenu()
     {
-        _consoleHelper.DisplayMenuOption("1", "Find Euler Cycle");
-        _consoleHelper.DisplayMenuOption("2", "Help");
-        _consoleHelper.DisplayMenuOption("3", "Exit");
+        _consoleHelper.DisplayMenuOption("1", "Найти Эйлеров цикл (Только отображение)");
+        _consoleHelper.DisplayMenuOption("2", "Найти Эйлеров цикл (Сохранить в файл)");
+        _consoleHelper.DisplayMenuOption("3", "Помощь");
+        _consoleHelper.DisplayMenuOption("4", "Выход");
         Console.WriteLine();
     }
+    
+    // Метод для обработки поиска графа и сохранения результатов в файл
+    private void ProcessGraphWithFileOutput()
+    {
+        _consoleHelper.DisplayHeader("Выбор графа (Сохранение в файл)");
+        var graphId = _consoleHelper.GetIntegerInput("Введите номер графа (1-5): ", 1, 5);
 
+        try
+        {
+            var inputData = new InputData(graphId, _graphFilePath);
+            var outputData = _graphService.ProcessGraph(inputData);
+            
+            // Сохраняем результаты в файл
+            outputData.SaveToFile(_outputPath);
+
+            // Также отображаем результаты в консоли
+            if (outputData.HasEulerianCycle)
+            {
+                DisplayEulerCycle(outputData.EulerianCycle);
+                _consoleHelper.DisplayMessage($"\nРезультаты сохранены в: {_outputPath}");
+                _consoleHelper.DisplayMessage($"Время выполнения: {outputData.ExecutionTime.TotalMilliseconds:F2} мс");
+            }
+            else
+            {
+                _consoleHelper.DisplayMessage("Этот граф не имеет Эйлерова цикла.");
+                _consoleHelper.DisplayMessage($"\nРезультаты сохранены в: {_outputPath}");
+            }
+        }
+        catch (Exception ex)
+        {
+            _consoleHelper.DisplayError($"Ошибка при обработке графа: {ex.Message}");
+        }
+    }
+
+    // Метод для обработки выбора графа и отображения результата в консоли
     private void ProcessGraphSelection()
     {
-        _consoleHelper.DisplayHeader("Graph Selection");
-        var graphId = _consoleHelper.GetIntegerInput("Enter graph number (1-5): ", 1, 5);
+        _consoleHelper.DisplayHeader("Выбор графа");
+        var graphId = _consoleHelper.GetIntegerInput("Введите номер графа (1-5): ", 1, 5);
 
         try
         {
             var graph = _fileService.ReadGraphById(_graphFilePath, graphId);
-            _consoleHelper.DisplayMessage($"\nProcessing graph {graphId}...\n");
+            _consoleHelper.DisplayMessage($"\nОбработка графа {graphId}...\n");
 
             if (_graphService.HasEulerianCycle(graph))
             {
@@ -89,36 +132,38 @@ public class ConsoleMenu
             }
             else
             {
-                _consoleHelper.DisplayMessage("This graph does not have an Euler cycle.");
+                _consoleHelper.DisplayMessage("Этот граф не имеет Эйлерова цикла.");
             }
         }
         catch (Exception ex)
         {
-            _consoleHelper.DisplayError($"Error processing graph: {ex.Message}");
+            _consoleHelper.DisplayError($"Ошибка при обработке графа: {ex.Message}");
         }
     }
 
+    // Метод для отображения найденного Эйлерова цикла
     private void DisplayEulerCycle(List<int> cycle)
     {
-        _consoleHelper.DisplayHeader("Euler Cycle Found");
-        _consoleHelper.DisplayMessage("Path: " + string.Join(" -> ", cycle));
+        _consoleHelper.DisplayHeader("Эйлеров цикл найден");
+        _consoleHelper.DisplayMessage("Путь: " + string.Join(" -> ", cycle));
     }
 
+    // Метод для отображения помощи
     private void DisplayHelp()
     {
-        _consoleHelper.DisplayHeader("Help");
+        _consoleHelper.DisplayHeader("Помощь");
         _consoleHelper.DisplayMessage(@"
-Euler Cycle Finder helps you find Euler cycles in graphs.
+Программа для поиска Эйлерова цикла в графах.
 
-Usage:
-1. Select 'Find Euler Cycle' from the main menu
-2. Enter a graph number (1-5)
-3. The program will analyze the graph and:
-- Display the Euler cycle if one exists
-- Inform you if no Euler cycle exists
+Использование:
+1. Выберите 'Найти Эйлеров цикл' в главном меню
+2. Введите номер графа (1-5)
+3. Программа проанализирует граф и:
+- Отобразит Эйлеров цикл, если он существует
+- Сообщит, если Эйлеров цикла нет
 
-Note: A graph has an Euler cycle if and only if:
-- All vertices have even degree
-- The graph is connected");
+Примечание: Граф имеет Эйлеров цикл, если и только если:
+- Все вершины имеют чётную степень
+- Граф связан");
     }
 }

@@ -12,3 +12,5 @@
 /Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.pdb
 /Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.genruntimeconfig.cache
 /Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/ref/EulerCycleFinder.dll
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/obj/Debug/net8.0/EulerCycleFinder.sourcelink.json
+/Users/federico/RiderProjects/EulerCycleFinder/EulerCycleFinder/bin/Debug/net8.0/Data/graphs.txt

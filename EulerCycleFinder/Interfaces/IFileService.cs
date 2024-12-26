@@ -5,6 +5,6 @@ namespace EulerCycleFinder.Interfaces;
 
 public interface IFileService
 {
-    List<Graph> ReadGraphsFromFile(string filePath);
     Graph ReadGraphById(string filePath, int graphId);
+    void SaveResults(string filePath, OutputData outputData);
 }

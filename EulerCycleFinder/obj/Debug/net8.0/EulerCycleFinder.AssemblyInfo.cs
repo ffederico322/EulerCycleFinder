@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EulerCycleFinder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6032351ade5c3222c97c96f7bc9a23904b347b8c")]
 [assembly: System.Reflection.AssemblyProductAttribute("EulerCycleFinder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EulerCycleFinder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
