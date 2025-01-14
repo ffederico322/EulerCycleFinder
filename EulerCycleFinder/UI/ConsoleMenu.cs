@@ -20,7 +20,7 @@ public class ConsoleMenu
         _consoleHelper = new ConsoleHelper();
         _graphFilePath = graphFilePath;
         // Создаем директорию для вывода в том же месте, где находится файл с графами
-        _outputPath = Path.Combine(Path.GetDirectoryName(_graphFilePath), "Results");
+        _outputPath = Path.Combine("Data", "Results");
     }
 
     // Главный метод, запускающий консольное меню
